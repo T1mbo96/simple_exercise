@@ -2,9 +2,13 @@ from tkinter import *
 import inspect
 import exercise
 
+counter = 0
+
 
 # Test if functions exist
 def test_functions_exist():
+    global counter
+
     T.insert(END, 'Test if functions exist:\n\n')
 
     # Test convert_field function exists
@@ -12,54 +16,63 @@ def test_functions_exist():
         T.insert(END, 'FAILED\ttest convert_field function exist\n')
     else:
         T.insert(END, 'OK\ttest convert_field function exist\n')
+        counter += 1
 
         # Test convert_field function arguments
         if len(inspect.getfullargspec(exercise.convert_field).args) != 1 or 'field' not in inspect.getfullargspec(exercise.convert_field).args:
             T.insert(END, 'FAILED\ttest if arguments of convert_field(field) function are correct\n')
         else:
             T.insert(END, 'OK\ttest if arguments of convert_field(field) are correct\n')
+            counter += 1
 
     # Test get_neighbour_positions function exists
     if not hasattr(exercise, 'get_neighbour_positions') or not inspect.isfunction(exercise.get_neighbour_positions):
         T.insert(END, 'FAILED\ttest get_neighbour_positions function exist\n')
     else:
         T.insert(END, 'OK\ttest get_neighbour_positions function exist\n')
+        counter += 1
 
         # Test get_neighbour_positions function arguments
         if len(inspect.getfullargspec(exercise.get_neighbour_positions).args) != 2 or 'y' != inspect.getfullargspec(exercise.get_neighbour_positions).args[0] or 'x' != inspect.getfullargspec(exercise.get_neighbour_positions).args[1]:
             T.insert(END, 'FAILED\ttest if arguments of get_neighbour_positions(y, x) function are correct\n')
         else:
             T.insert(END, 'OK\ttest if arguments of get_neighbour_positions(y, x) are correct\n')
+            counter += 1
 
     # Test click_position function exists
     if not hasattr(exercise, 'click_position') or not inspect.isfunction(exercise.click_position):
         T.insert(END, 'FAILED\ttest click_position function exist\n')
     else:
         T.insert(END, 'OK\ttest click_position function exist\n')
+        counter += 1
 
         # Test click_position function arguments
         if len(inspect.getfullargspec(exercise.click_position).args) != 3 or 'y' != inspect.getfullargspec(exercise.click_position).args[0] or 'x' != inspect.getfullargspec(exercise.click_position).args[1] or 'field' != inspect.getfullargspec(exercise.click_position).args[2]:
             T.insert(END, 'FAILED\ttest if arguments of click_position(y, x, field) function are correct\n')
         else:
             T.insert(END, 'OK\ttest if arguments of click_position(y, x, field) are correct\n')
+            counter += 1
 
     # Test check_if_solved function exists
     if not hasattr(exercise, 'check_if_solved') or not inspect.isfunction(exercise.check_if_solved):
         T.insert(END, 'FAILED\ttest check_if_solved function exist\n')
     else:
         T.insert(END, 'OK\ttest check_if_solved function exist\n')
+        counter += 1
 
         # Test check_if_solved function arguments
         if len(inspect.getfullargspec(exercise.check_if_solved).args) != 1 or 'field' not in inspect.getfullargspec(exercise.check_if_solved).args:
             T.insert(END, 'FAILED\ttest if arguments of check_if_solved() function are correct\n')
         else:
             T.insert(END, 'OK\ttest if arguments of check_if_solved() are correct\n')
+            counter += 1
 
     # Test user_input function exists
     if not hasattr(exercise, 'user_input') or not inspect.isfunction(exercise.user_input):
         T.insert(END, 'FAILED\ttest user_input function exist\n')
     else:
         T.insert(END, 'OK\ttest user_input function exist\n')
+        counter += 1
 
     T.insert(END, '------------------------------------------------------------------------------------------\n')
 
@@ -74,6 +87,8 @@ def insert_positions_of_list(neighbour_list):
 
 # Test get_neighbour_positions function
 def test_get_neighbour_positions():
+    global counter
+
     T.insert(END, 'Test get_neighbour_positions function:\n\n')
 
     # Test if function throws error
@@ -81,6 +96,7 @@ def test_get_neighbour_positions():
         exercise.get_neighbour_positions(-1, 4)
     except ValueError:
         T.insert(END, 'OK\tthrows ValueError for (-1, 4)\n')
+        counter += 1
     else:
         T.insert(END, 'FAILED\tdoes not throw ValueError for (-1, 4)\n')
 
@@ -88,6 +104,7 @@ def test_get_neighbour_positions():
         exercise.get_neighbour_positions(5, 4)
     except ValueError:
         T.insert(END, 'OK\tthrows ValueError for (5, 4)\n')
+        counter += 1
     else:
         T.insert(END, 'FAILED\tdoes not throw ValueError for (5, 4)\n')
 
@@ -95,6 +112,7 @@ def test_get_neighbour_positions():
         exercise.get_neighbour_positions(0, 5)
     except ValueError:
         T.insert(END, 'OK\tthrows ValueError for (0, 5)\n')
+        counter += 1
     else:
         T.insert(END, 'FAILED\tdoes not throw ValueError for (0, 5)\n')
 
@@ -102,6 +120,7 @@ def test_get_neighbour_positions():
         exercise.get_neighbour_positions(0, -1)
     except ValueError:
         T.insert(END, 'OK\tthrows ValueError for (0, -1)\n')
+        counter += 1
     else:
         T.insert(END, 'FAILED\tdoes not throw ValueError for (0, -1)\n')
 
@@ -110,6 +129,7 @@ def test_get_neighbour_positions():
         T.insert(END, 'FAILED\treturn value is not a list\n')
     else:
         T.insert(END, 'OK\treturn value is a list\n')
+        counter += 1
 
     # Test position [3, 2]
     correct_positions = True
@@ -120,12 +140,14 @@ def test_get_neighbour_positions():
             len(test_return_statement)) + '\n')
     else:
         T.insert(END, 'OK\tposition [3|2] returns a list with 4 positions\n')
+        counter += 1
 
         if [2, 2] in test_return_statement:
             if [3, 3] in test_return_statement:
                 if [4, 2] in test_return_statement:
                     if [3, 1] in test_return_statement:
                         T.insert(END, 'OK\tposition [3|2] returns a list with positions [2|2] [3|3] [4|2] [3|1]\n')
+                        counter += 1
                     else:
                         correct_positions = False
                 else:
@@ -149,11 +171,13 @@ def test_get_neighbour_positions():
             len(test_return_statement)) + '\n')
     else:
         T.insert(END, 'OK\tposition [0|2] returns a list with 3 positions\n')
+        counter += 1
 
         if [0, 1] in test_return_statement:
             if [0, 3] in test_return_statement:
                 if [1, 2] in test_return_statement:
                     T.insert(END, 'OK\tposition [0|2] returns a list with positions [0|1] [0|3] [1|2]\n')
+                    counter += 1
                 else:
                     correct_positions = False
             else:
@@ -175,11 +199,13 @@ def test_get_neighbour_positions():
             len(test_return_statement)) + '\n')
     else:
         T.insert(END, 'OK\tposition [2|4] returns a list with 3 positions\n')
+        counter += 1
 
         if [1, 4] in test_return_statement:
             if [2, 3] in test_return_statement:
                 if [3, 4] in test_return_statement:
                     T.insert(END, 'OK\tposition [2|4] returns a list with positions [1|4] [2|3] [3|4]\n')
+                    counter += 1
                 else:
                     correct_positions = False
             else:
@@ -197,6 +223,8 @@ def test_get_neighbour_positions():
 
 # Test click_position function
 def test_click_position():
+    global counter
+
     T.insert(END, 'Test click_position function:\n\n')
 
     # First test
@@ -220,6 +248,7 @@ def test_click_position():
     else:
         T.insert(END,
                  'OK\tclicking position [3|3] on field solved it:\n\n\t0 0 0 0 0\t\t0 0 0 0 0\n\t0 0 0 0 0\t\t0 0 0 0 0\n\t0 0 0 1 0\t\t0 0 0 0 0\n\t0 0 1 1 1\t\t0 0 0 0 0\n\t0 0 0 1 0\t\t0 0 0 0 0')
+        counter += 1
 
     T.insert(END, '\n\n')
 
@@ -235,6 +264,7 @@ def test_click_position():
                     if field[1][1] == 0:
                         T.insert(END,
                                  'OK\tclicking position [1|2] on field changes field and surrounding fields:\n\n\t0 0 1 0 0\t\t0 0 0 0 0\n\t0 1 0 0 0\t\t0 0 1 1 0\n\t0 1 0 1 0\t\t0 1 1 1 0\n\t0 0 1 1 1\t\t0 0 1 1 1\n\t1 0 0 1 0\t\t1 0 0 1 0')
+                        counter += 1
                     else:
                         correct_changes = False
                 else:
@@ -278,6 +308,7 @@ def test_click_position():
     else:
         T.insert(END,
                  'OK\tclicking position [2|4] on field set every position to 1:\n\n\t1 1 1 1 1\t\t1 1 1 1 1\n\t1 1 1 1 0\t\t1 1 1 1 1\n\t1 1 1 0 0\t\t1 1 1 1 1\n\t1 1 1 1 0\t\t1 1 1 1 1\n\t1 1 1 1 1\t\t1 1 1 1 1')
+        counter += 1
 
     T.insert(END, '\n\n')
 
@@ -286,6 +317,8 @@ def test_click_position():
 
 # Test check_if_solved function
 def test_check_if_solved():
+    global counter
+
     T.insert(END, 'Test check_if_solved function:\n\n')
 
     # Test if field is solved should return false
@@ -297,6 +330,7 @@ def test_check_if_solved():
     else:
         T.insert(END,
                  'OK\tchecking if field is solved is false:\n\n\t1 1 1 1 1\n\t1 1 1 1 0\n\t1 1 1 0 0\n\t1 1 1 1 0\n\t1 1 1 1 1')
+        counter += 1
 
     T.insert(END, '\n\n')
 
@@ -309,6 +343,7 @@ def test_check_if_solved():
     else:
         T.insert(END,
                  'OK\tchecking if field is solved is false:\n\n\t0 0 1 0 0\n\t0 1 0 0 0\n\t0 1 0 1 0\n\t0 0 0 1 1\n\t1 0 0 1 0')
+        counter += 1
 
     T.insert(END, '\n\n')
 
@@ -318,6 +353,7 @@ def test_check_if_solved():
     if exercise.check_if_solved(field):
         T.insert(END,
                  'OK\tchecking if field is solved is true:\n\n\t0 0 0 0 0\n\t0 0 0 0 0\n\t0 0 0 0 0\n\t0 0 0 0 0\n\t0 0 0 0 0')
+        counter += 1
     else:
         T.insert(END,
                  'FAILED\tchecking if field is solved should not be false:\n\n\t0 0 0 0 0\n\t0 0 0 0 0\n\t0 0 0 0 0\n\t0 0 0 0 0\n\t0 0 0 0 0')
@@ -328,6 +364,8 @@ def test_check_if_solved():
 
 
 def test_user_input():
+    global counter
+
     T.insert(END, 'Test user_input function:\n\n')
 
     # Test if function throws error
@@ -337,6 +375,7 @@ def test_user_input():
         exercise.user_input()
     except ValueError:
         T.insert(END, 'OK\tthrows ValueError for (-1, -1)\n')
+        counter += 1
     else:
         T.insert(END, 'FAILED\tdoes not throw ValueError for (-1, -1)\n')
 
@@ -346,6 +385,7 @@ def test_user_input():
         exercise.user_input()
     except ValueError:
         T.insert(END, 'OK\tthrows ValueError for (5, 5)\n')
+        counter += 1
     else:
         T.insert(END, 'FAILED\tdoes not throw ValueError for (5, 5)\n')
 
@@ -358,10 +398,12 @@ def test_user_input():
         T.insert(END, 'FAILED\treturn value is not a list\n')
     else:
         T.insert(END, 'OK\treturn value is a list\n')
+        counter += 1
 
     # Test if list consists of two elements
     if len(output) == 2:
         T.insert(END, 'OK\tlist consists of two elements\n')
+        counter += 1
     else:
         T.insert(END, 'FAILED\tlist does not consist of two elements\n')
 
@@ -370,8 +412,10 @@ def test_user_input():
 
 # Test print_field function
 def test_convert_field():
+    global counter
+
     T.insert(END, 'Test convert_field function:\n\n')
-    T.insert(END, 'Spaces will be replaced with [ ] for better visualization\n\n')
+    T.insert(END, 'Spaces will be replaced with [ ] for better visualization!\nWatch out for correct line breaks \\n (no line breaks at the start or end of the string)!\n\n')
 
     # Test if function return str
     field = [[0, 0, 0, 1, 0], [1, 0, 0, 1, 0], [0, 0, 0, 0, 1], [0, 0, 0, 0, 0], [1, 1, 1, 0, 0]]
@@ -381,12 +425,14 @@ def test_convert_field():
         T.insert(END, 'FAILED\treturn value is not str\n')
     else:
         T.insert(END, 'OK\treturn value is str\n')
+        counter += 1
 
     # First test
     string_representation = string_representation.replace(' ', '[ ]')
 
     if string_representation == '0[ ]0[ ]0[ ]1[ ]0\n1[ ]0[ ]0[ ]1[ ]0\n0[ ]0[ ]0[ ]0[ ]1\n0[ ]0[ ]0[ ]0[ ]0\n1[ ]1[ ]1[ ]0[ ]0':
         T.insert(END, 'OK\tstring representation of field should look like this:\n\n\t0[ ]0[ ]0[ ]1[ ]0\t\t\t0[ ]0[ ]0[ ]1[ ]0\n\t1[ ]0[ ]0[ ]1[ ]0\t\t\t1[ ]0[ ]0[ ]1[ ]0\n\t0[ ]0[ ]0[ ]0[ ]1\t\t\t0[ ]0[ ]0[ ]0[ ]1\n\t0[ ]0[ ]0[ ]0[ ]0\t\t\t0[ ]0[ ]0[ ]0[ ]0\n\t1[ ]1[ ]1[ ]0[ ]0\t\t\t1[ ]1[ ]1[ ]0[ ]0\n')
+        counter += 1
     else:
         T.insert(END, 'FAILED\tstring representation of field should look like this:\n\n\t0[ ]0[ ]0[ ]1[ ]0\n\t1[ ]0[ ]0[ ]1[ ]0\n\t0[ ]0[ ]0[ ]0[ ]1\n\t0[ ]0[ ]0[ ]0[ ]0\n\t1[ ]1[ ]1[ ]0[ ]0\n\n\tbut was:\n\n\t')
 
@@ -406,6 +452,7 @@ def test_convert_field():
     if string_representation == '0[ ]0[ ]0[ ]0[ ]0\n0[ ]0[ ]0[ ]0[ ]0\n0[ ]0[ ]0[ ]0[ ]0\n0[ ]0[ ]0[ ]0[ ]0\n0[ ]0[ ]0[ ]0[ ]0':
         T.insert(END,
                  'OK\tstring representation of field should look like this:\n\n\t0[ ]0[ ]0[ ]0[ ]0\t\t\t0[ ]0[ ]0[ ]0[ ]0\n\t0[ ]0[ ]0[ ]0[ ]0\t\t\t0[ ]0[ ]0[ ]0[ ]0\n\t0[ ]0[ ]0[ ]0[ ]0\t\t\t0[ ]0[ ]0[ ]0[ ]0\n\t0[ ]0[ ]0[ ]0[ ]0\t\t\t0[ ]0[ ]0[ ]0[ ]0\n\t0[ ]0[ ]0[ ]0[ ]0\t\t\t0[ ]0[ ]0[ ]0[ ]0\n')
+        counter += 1
     else:
         T.insert(END,
                  'FAILED\tstring representation of field should look like this:\n\n\t0[ ]0[ ]0[ ]0[ ]0\n\t0[ ]0[ ]0[ ]0[ ]0\n\t0[ ]0[ ]0[ ]0[ ]0\n\t0[ ]0[ ]0[ ]0[ ]0\n\t0[ ]0[ ]0[ ]0[ ]0\n\n\tbut was:\n\n\t')
@@ -458,4 +505,8 @@ if __name__ == '__main__':
         pass
 
     test_convert_field()
+
+    T.insert(END, 'Tests correct: ' + str(counter) + '/33\n')
+    T.insert(END, 'Tests failed: ' + str(33 - counter) + '/33')
+
     mainloop()
