@@ -74,8 +74,6 @@ def test_functions_exist():
         T.insert(END, 'OK\ttest user_input function exist\n')
         counter += 1
 
-    T.insert(END, '------------------------------------------------------------------------------------------\n')
-
 
 # Helper function for test_get_neighbour_positions
 def insert_positions_of_list(neighbour_list):
@@ -89,6 +87,7 @@ def insert_positions_of_list(neighbour_list):
 def test_get_neighbour_positions():
     global counter
 
+    T.insert(END, '------------------------------------------------------------------------------------------\n')
     T.insert(END, 'Test get_neighbour_positions function:\n\n')
 
     # Test if function throws error
@@ -218,13 +217,12 @@ def test_get_neighbour_positions():
                  'FAILED\tposition [2|4] should return a list with positions [1|4] [2|3] [3|4] but was ')
         insert_positions_of_list(test_return_statement)
 
-    T.insert(END, '------------------------------------------------------------------------------------------\n')
-
 
 # Test click_position function
 def test_click_position():
     global counter
 
+    T.insert(END, '------------------------------------------------------------------------------------------\n')
     T.insert(END, 'Test click_position function:\n\n')
 
     # First test
@@ -312,13 +310,12 @@ def test_click_position():
 
     T.insert(END, '\n\n')
 
-    T.insert(END, '------------------------------------------------------------------------------------------\n')
-
 
 # Test check_if_solved function
 def test_check_if_solved():
     global counter
 
+    T.insert(END, '------------------------------------------------------------------------------------------\n')
     T.insert(END, 'Test check_if_solved function:\n\n')
 
     # Test if field is solved should return false
@@ -360,12 +357,11 @@ def test_check_if_solved():
 
     T.insert(END, '\n\n')
 
-    T.insert(END, '------------------------------------------------------------------------------------------\n')
-
 
 def test_user_input():
     global counter
 
+    T.insert(END, '------------------------------------------------------------------------------------------\n')
     T.insert(END, 'Test user_input function:\n\n')
 
     # Test if function throws error
@@ -407,13 +403,12 @@ def test_user_input():
     else:
         T.insert(END, 'FAILED\tlist does not consist of two elements\n')
 
-    T.insert(END, '------------------------------------------------------------------------------------------\n')
-
 
 # Test print_field function
 def test_convert_field():
     global counter
 
+    T.insert(END, '------------------------------------------------------------------------------------------\n')
     T.insert(END, 'Test convert_field function:\n\n')
     T.insert(END, 'Spaces will be replaced with [ ] for better visualization!\nWatch out for correct line breaks \\n (no line breaks at the start or end of the string)!\n\n')
 
@@ -465,8 +460,6 @@ def test_convert_field():
 
     T.insert(END, '\n')
 
-    T.insert(END, '------------------------------------------------------------------------------------------\n')
-
 
 if __name__ == '__main__':
     root = Tk()
@@ -474,7 +467,13 @@ if __name__ == '__main__':
     scrollbar.pack(side=RIGHT, fill=Y)
     T = Text(root, height=50, width=150, yscrollcommand=scrollbar.set)
     T.pack()
-    test_functions_exist()
+
+    try:
+        test_functions_exist()
+    except AttributeError:
+        pass
+    except TypeError:
+        pass
 
     try:
         test_get_neighbour_positions()
@@ -504,9 +503,15 @@ if __name__ == '__main__':
     except TypeError:
         pass
 
-    test_convert_field()
+    try:
+        test_convert_field()
+    except AttributeError:
+        pass
+    except TypeError:
+        pass
 
-    T.insert(END, 'Tests correct: ' + str(counter) + '/33\n')
+    T.insert(END, '------------------------------------------------------------------------------------------\n')
+    T.insert(END, '\nTests correct: ' + str(counter) + '/33\n')
     T.insert(END, 'Tests failed: ' + str(33 - counter) + '/33')
 
     mainloop()
