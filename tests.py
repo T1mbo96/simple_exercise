@@ -1,5 +1,7 @@
 from tkinter import *
 import inspect
+from tkinter.scrolledtext import ScrolledText
+
 import exercise
 
 counter = 0
@@ -463,9 +465,7 @@ def test_convert_field():
 
 if __name__ == '__main__':
     root = Tk()
-    scrollbar = Scrollbar(root)
-    scrollbar.pack(side=RIGHT, fill=Y)
-    T = Text(root, height=50, width=150, yscrollcommand=scrollbar.set)
+    T = ScrolledText(root, height=50, width=150)
     T.pack()
 
     try:
